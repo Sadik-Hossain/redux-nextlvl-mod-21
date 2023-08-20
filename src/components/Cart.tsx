@@ -17,13 +17,13 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { cartActions } from '@/redux/features/cart/cartSlice';
 
 export default function Cart() {
-  const { products } = useAppSelector((state) => state.cart);
+  const { products, total } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   //! Dummy data
   // const products: IProduct[] = [];
+  // const total = 0;
   //! **
-  const total = 0;
 
   return (
     <Sheet>
@@ -35,7 +35,7 @@ export default function Cart() {
       <SheetContent className="overflow-auto relative">
         <SheetHeader>
           <SheetTitle>Cart</SheetTitle>
-          <h1>Total: {total.toFixed(2)}</h1>
+          <h1>Total: {Number(total).toFixed(2)}</h1>
         </SheetHeader>
         <div className="space-y-5">
           {products.map((product) => (

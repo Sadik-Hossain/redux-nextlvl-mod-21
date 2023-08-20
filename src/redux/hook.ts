@@ -1,3 +1,5 @@
+// * deine typed hook: https://redux-toolkit.js.org/tutorials/typescript#define-typed-hooks
+
 import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 import type { RootState, AppDispatch } from './store';

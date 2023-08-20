@@ -1,12 +1,25 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { IProduct } from '@/types/globalTypes';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
+/**
+ * export interface IProduct {
+  _id: number;
+  name: string;
+  image: string;
+  price: number;
+  features: string[];
+  status: boolean;
+  rating: number;
+  quantity?: number;
+}
+ */
 interface ICart {
   products: IProduct[];
+  total: number;
 }
 const initalState: ICart = {
   products: [],
+  total: 0,
 };
 const cartSlice = createSlice({
   name: 'cart',
@@ -21,6 +34,7 @@ const cartSlice = createSlice({
       } else {
         state.products.push({ ...action.payload, quantity: 1 });
       }
+      state.total = state.total + action.payload.price;
     },
 
     removeFromCart: (state, action: PayloadAction<IProduct>) => {
@@ -28,6 +42,8 @@ const cartSlice = createSlice({
       state.products = state.products.filter(
         (product) => product._id !== action.payload._id
       );
+      state.total =
+        state.total - action.payload.price * action.payload.quantity!;
     },
 
     removeOne: (state, action: PayloadAction<IProduct>) => {
@@ -41,6 +57,7 @@ const cartSlice = createSlice({
           (product) => product._id !== action.payload._id
         );
       }
+      state.total = state.total - action.payload.price;
     },
   },
 });
